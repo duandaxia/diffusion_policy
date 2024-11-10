@@ -1,0 +1,41 @@
+*************************************************************
+*************************************************************
+You have loaded a module for Anaconda Free edition.
+These modules are DEPRECATED for license reasons (see below).
+*************************************************************
+*************************************************************
+
+The Anaconda Python distribution license terms were updated on
+March 31, 2024 in a way that we interpret as restricting also
+general noncommercial use of Anaconda "Free edition" in organizations
+with more than 200 employees.
+
+To help users avoid possible licensing issues, we have deprecated
+the Anaconda/<version> modules and now direct users to the
+compatible community-provided software in our modules named:
+
+  Mambaforge/<version>
+
+These modules behave very similar to the Anaconda modules. Upon
+loading the module, you can access the 'conda' command, allowing
+you to interact with your existing Anaconda environments like before.
+**You do not need to rebuild your existing Anaconda environments**.
+
+One practical difference is that the Mambaforge tools are configured
+to only use the "conda-forge" channel for packages by default. However,
+this is rarely a problem for typical use.
+
+For questions related to our Anaconda and Mambaforge modules,
+please email: berzelius-support@nsc.liu.se
+
+---------------------------------------------------------------------------------------------------
+NOTE: We strongly advice against placing 'conda activate' (with or without
+arguments)
+      in your shell initialization files, (e.g. '.bashrc' or '.bash_profile')
+since this
+      severly alters the environment for running software in ways that cause
+unpredictable
+      issues that can be difficult to diagnose.
+---------------------------------------------------------------------------------------------------
+
+python: can't open file '/proj/daxia/diffusion/diffusion_policy/slurm/train.py': [Errno 2] No such file or directory
