@@ -14,6 +14,8 @@ from diffusion_policy.policy.base_lowdim_policy import BaseLowdimPolicy
 from diffusion_policy.model.diffusion.conditional_unet1d import ConditionalUnet1D
 from diffusion_policy.model.diffusion.mask_generator import LowdimMaskGenerator
 
+##python eval.py --checkpoint data/default/epoch\=0550-test_mean_score\=0.969.ckpt --output_dir data/todele 
+
 class DiffusionUnetLowdimPolicy(BaseLowdimPolicy):
     def __init__(self, 
             model: ConditionalUnet1D,
@@ -58,7 +60,9 @@ class DiffusionUnetLowdimPolicy(BaseLowdimPolicy):
 
         if num_inference_steps is None:
             num_inference_steps = noise_scheduler.config.num_train_timesteps
-        self.num_inference_steps = 50 #num_inference_steps
+        self.num_inference_steps = num_inference_steps
+
+        # self.n_action_steps = 50
     
     # ========= inference  ============
     def conditional_sample(self, 
@@ -81,8 +85,8 @@ class DiffusionUnetLowdimPolicy(BaseLowdimPolicy):
             device=condition_data.device,
             generator=generator)
     
-        if self.init and past_acs is not None:
-            trajectory[:,:8,:2] = past_acs
+        # if self.init and past_acs is not None:
+            # trajectory[:,:8,:2] = past_acs
 
         # set step values
         scheduler.num_inference_steps=100
@@ -106,8 +110,7 @@ class DiffusionUnetLowdimPolicy(BaseLowdimPolicy):
                 **kwargs
                 ).prev_sample
             print(t)
-            print(((trajectory[condition_mask] - condition_data[condition_mask]).norm()))
-            print(((trajectory-prevtraj).norm()/prevtraj.norm()))
+            print(trajectory.shape)
 
         # finally make sure conditioning is enforced
         trajectory[condition_mask] = condition_data[condition_mask]        
@@ -118,6 +121,65 @@ class DiffusionUnetLowdimPolicy(BaseLowdimPolicy):
             ps.sort_stats(pstats.SortKey.TIME)
             ps.print_stats()
         return trajectory
+    
+
+    # def nr_conditional_sample(self, 
+    #         condition_data, condition_mask,
+    #         local_cond=None, global_cond=None,
+    #         generator=None,
+    #         past_acs=None,
+    #         # keyword arguments to scheduler.step
+    #         **kwargs
+    #         ):
+        
+    #     profiler = cProfile.Profile()
+    #     profiler.enable()
+    #     model = self.model
+    #     scheduler = self.noise_scheduler
+
+    #     trajectory = torch.randn(
+    #         size=condition_data.shape, 
+    #         dtype=condition_data.dtype,
+    #         device=condition_data.device,
+    #         generator=generator)
+    
+    #     # if self.init and past_acs is not None:
+    #         # trajectory[:,:8,:2] = past_acs
+
+    #     # set step values
+    #     scheduler.num_inference_steps=100
+    #     scheduler.set_timesteps(self.num_inference_steps)
+
+    #     prevtraj = trajectory
+
+    #     for t in scheduler.timesteps:
+    #         # 1. apply conditioning
+    #         trajectory[condition_mask] = condition_data[condition_mask]
+    #         prevtraj = trajectory
+
+    #         # 2. predict model output
+    #         model_output = model(trajectory, t, 
+    #             local_cond=local_cond, global_cond=global_cond)
+
+    #         # 3. compute previous image: x_t -> x_t-1
+    #         trajectory = scheduler.step(
+    #             model_output, t, trajectory, 
+    #             generator=generator,
+    #             **kwargs
+    #             ).prev_sample
+    #         print(t)
+    #         print(trajectory.shape)
+
+    #     # finally make sure conditioning is enforced
+    #     trajectory[condition_mask] = condition_data[condition_mask]        
+
+    #     profiler.disable()
+    #     with open('profile.prof', 'w') as f:
+    #         ps = pstats.Stats(profiler, stream=f)
+    #         ps.sort_stats(pstats.SortKey.TIME)
+    #         ps.print_stats()
+    #     return trajectory
+
 
 
     # def predict_old_action(self, obs_dict: Dict[str, torch.Tensor]) -> Dict[str, torch.Tensor]:
@@ -199,6 +261,98 @@ class DiffusionUnetLowdimPolicy(BaseLowdimPolicy):
     #         result['action_obs_pred'] = action_obs_pred
     #         result['obs_pred'] = obs_pred
     #     return result
+
+    # def nr_all_predict_action(self, obs_dict: Dict[str, torch.Tensor]) -> Dict[str, torch.Tensor]:
+    #     """
+    #     obs_dict: must include "obs" key
+    #     result: must include "action" key
+
+    #     unnormalized pred version
+    #     """
+
+    #     assert 'obs' in obs_dict
+    #     #assert 'past_action' not in obs_dict # not implemented yet
+
+    #     past_acs = None
+    #     if 'past_action' in obs_dict:
+    #         past_acs = self.normalizer['action'].normalize(obs_dict['past_action'])
+    #         print("past action: ", past_acs.shape)
+    #     nobs = self.normalizer['obs'].normalize(obs_dict['obs'])
+    #     B, _, Do = nobs.shape
+    #     To = self.n_obs_steps
+    #     assert Do == self.obs_dim
+    #     T = self.horizon
+    #     Da = self.action_dim
+
+    #     # build input
+    #     device = self.device
+    #     dtype = self.dtype
+
+    #     # handle different ways of passing observation
+    #     local_cond = None
+    #     global_cond = None
+    #     if self.obs_as_local_cond:
+    #         # condition through local feature
+    #         # all zero except first To timesteps
+    #         local_cond = torch.zeros(size=(B,T,Do), device=device, dtype=dtype)
+    #         local_cond[:,:To] = nobs[:,:To]
+    #         shape = (B, T, Da)
+    #         cond_data = torch.zeros(size=shape, device=device, dtype=dtype)
+    #         cond_mask = torch.zeros_like(cond_data, dtype=torch.bool)
+    #     elif self.obs_as_global_cond:
+    #         # condition throught global feature
+    #         global_cond = nobs[:,:To].reshape(nobs.shape[0], -1)
+    #         shape = (B, T, Da)
+    #         if self.pred_action_steps_only:
+    #             shape = (B, self.n_action_steps, Da)
+    #         cond_data = torch.zeros(size=shape, device=device, dtype=dtype)
+    #         cond_mask = torch.zeros_like(cond_data, dtype=torch.bool)
+    #     else:
+    #         # condition through impainting
+    #         shape = (B, T, Da+Do)
+    #         cond_data = torch.zeros(size=shape, device=device, dtype=dtype)
+    #         cond_mask = torch.zeros_like(cond_data, dtype=torch.bool)
+    #         cond_data[:,:To,Da:] = nobs[:,:To]
+    #         cond_mask[:,:To,Da:] = True
+
+
+
+    #     # run sampling
+    #     nsample = self.nr_conditional_sample(
+    #         cond_data, 
+    #         cond_mask,
+    #         local_cond=local_cond,
+    #         global_cond=global_cond,
+    #         past_acs=past_acs,
+    #         **self.kwargs)
+        
+    #     # unnormalize prediction
+    #     naction_pred = nsample[...,:Da]
+    #     action_pred = self.normalizer['action'].unnormalize(naction_pred)
+
+    #     # get action
+    #     if self.pred_action_steps_only:
+    #         action = action_pred
+    #     else:
+    #         start = To
+    #         if self.oa_step_convention:
+    #             start = To - 1
+    #         end = start + self.n_action_steps
+    #         action = action_pred[:,start:end]
+        
+    #     result = {
+    #         'action': action,
+    #         'action_pred': action_pred
+    #     }
+    #     if not (self.obs_as_local_cond or self.obs_as_global_cond):
+    #         #in this loop
+    #         nobs_pred = nsample[...,Da:]
+    #         obs_pred = self.normalizer['obs'].unnormalize(nobs_pred)
+    #         action_obs_pred = obs_pred[:,start:end]
+    #         print("result shape", action_obs_pred.shape)
+    #         result['action_obs_pred'] = action_obs_pred
+    #         result['obs_pred'] = obs_pred
+    #     return result
     
     def predict_action(self, obs_dict: Dict[str, torch.Tensor]) -> Dict[str, torch.Tensor]:
         """
@@ -214,7 +368,7 @@ class DiffusionUnetLowdimPolicy(BaseLowdimPolicy):
         past_acs = None
         if 'past_action' in obs_dict:
             past_acs = self.normalizer['action'].normalize(obs_dict['past_action'])
-            print(past_acs.shape)
+            print("past action: ", past_acs.shape)
         nobs = self.normalizer['obs'].normalize(obs_dict['obs'])
         B, _, Do = nobs.shape
         To = self.n_obs_steps

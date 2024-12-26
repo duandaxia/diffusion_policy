@@ -1,183 +1,170 @@
-         137802 function calls (124452 primitive calls) in 0.448 seconds
+         253602 function calls (227102 primitive calls) in 0.800 seconds
 
    Ordered by: internal time
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-     1650    0.154    0.000    0.154    0.000 {built-in method torch.conv1d}
-     1250    0.039    0.000    0.039    0.000 {built-in method torch.group_norm}
-      600    0.032    0.000    0.322    0.001 /proj/daxia/diffusion/diffusion_policy/diffusion_policy/model/diffusion/conditional_unet1d.py:46(forward)
-      700    0.021    0.000    0.021    0.000 {built-in method torch._C._nn.linear}
- 10700/50    0.016    0.000    0.379    0.008 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/module.py:1124(_call_impl)
-     1900    0.016    0.000    0.016    0.000 {built-in method torch._C._nn.mish}
-      150    0.014    0.000    0.035    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_tensor_str.py:88(__init__)
-      100    0.009    0.000    0.009    0.000 {built-in method torch.conv_transpose1d}
-1950/1900    0.009    0.000    0.273    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/container.py:137(forward)
-       50    0.007    0.000    0.017    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/diffusers/schedulers/scheduling_ddpm.py:228(step)
-     1250    0.007    0.000    0.052    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/functional.py:2506(group_norm)
-    11601    0.007    0.000    0.007    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/module.py:1194(__getattr__)
-    10951    0.007    0.000    0.007    0.000 {built-in method torch._C._get_tracing_state}
-      600    0.006    0.000    0.009    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/einops.py:150(_reconstruct_from_shape_uncached)
-     2150    0.006    0.000    0.006    0.000 {method 'reshape' of 'torch._C._TensorBase' objects}
-      100    0.005    0.000    0.005    0.000 {built-in method torch.masked_select}
-      100    0.004    0.000    0.004    0.000 {built-in method torch.isfinite}
-      150    0.004    0.000    0.004    0.000 {built-in method torch.frobenius_norm}
-       50    0.003    0.000    0.379    0.008 /proj/daxia/diffusion/diffusion_policy/diffusion_policy/model/diffusion/conditional_unet1d.py:173(forward)
-      300    0.003    0.000    0.003    0.000 {method 'item' of 'torch._C._TensorBase' objects}
-     1650    0.003    0.000    0.161    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/conv.py:306(forward)
-     1250    0.003    0.000    0.056    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/normalization.py:271(forward)
-      150    0.003    0.000    0.043    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_tensor_str.py:306(_str_intern)
-16400/13900    0.003    0.000    0.003    0.000 {built-in method builtins.len}
-      351    0.002    0.000    0.002    0.000 {method 'to' of 'torch._C._TensorBase' objects}
-     1650    0.002    0.000    0.157    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/conv.py:298(_conv_forward)
-     3750    0.002    0.000    0.002    0.000 {method 'size' of 'torch._C._TensorBase' objects}
-       50    0.002    0.000    0.005    0.000 /proj/daxia/diffusion/diffusion_policy/diffusion_policy/model/diffusion/positional_embedding.py:10(forward)
-      700    0.002    0.000    0.002    0.000 {method 'permute' of 'torch._C._TensorBase' objects}
-      150    0.002    0.000    0.002    0.000 {built-in method torch.cat}
-     1200    0.002    0.000    0.004    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/container.py:183(_get_abs_string_index)
-      600    0.002    0.000    0.018    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/_torch_specific.py:74(apply_for_scriptable_torch)
-     1250    0.002    0.000    0.002    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/functional.py:2390(_verify_batch_size)
-      150    0.002    0.000    0.046    0.000 {built-in method builtins.print}
-     1900    0.002    0.000    0.018    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/functional.py:2051(mish)
-     1900    0.002    0.000    0.019    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/activation.py:426(forward)
-     1250    0.001    0.000    0.214    0.000 /proj/daxia/diffusion/diffusion_policy/diffusion_policy/model/diffusion/conv1d_components.py:39(forward)
-      198    0.001    0.000    0.001    0.000 {built-in method torch.rsub}
-     1200    0.001    0.000    0.006    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/container.py:192(__getitem__)
-     1950    0.001    0.000    0.002    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/container.py:129(__iter__)
-       49    0.001    0.000    0.002    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/diffusers/schedulers/scheduling_ddpm.py:194(_get_variance)
-      700    0.001    0.000    0.023    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/linear.py:113(forward)
-      249    0.001    0.000    0.001    0.000 {method 'pow' of 'torch._C._TensorBase' objects}
-      100    0.001    0.000    0.001    0.000 {method 'min' of 'torch._C._TensorBase' objects}
-      100    0.001    0.000    0.001    0.000 {method 'max' of 'torch._C._TensorBase' objects}
-      251    0.001    0.000    0.001    0.000 {method 'unbind' of 'torch._C._TensorBase' objects}
-      150    0.001    0.000    0.002    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/packaging/version.py:188(__init__)
-      100    0.001    0.000    0.001    0.000 {method 'ne' of 'torch._C._TensorBase' objects}
-      100    0.001    0.000    0.001    0.000 {built-in method torch.ceil}
-      100    0.001    0.000    0.001    0.000 {method 'abs' of 'torch._C._TensorBase' objects}
-4800/4650    0.001    0.000    0.001    0.000 {built-in method builtins.isinstance}
-      150    0.001    0.000    0.039    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_tensor_str.py:236(_tensor_str)
-       50    0.001    0.000    0.001    0.000 {built-in method torch.randn}
-       99    0.001    0.000    0.001    0.000 {built-in method torch.clamp}
-       50    0.001    0.000    0.001    0.000 {built-in method torch.arange}
-     2500    0.001    0.000    0.001    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/container.py:213(__len__)
-      600    0.001    0.000    0.018    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/layers/torch.py:13(forward)
-      150    0.001    0.000    0.004    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/functional.py:1345(norm)
-     2601    0.001    0.000    0.001    0.000 {built-in method builtins.iter}
-     1800    0.001    0.000    0.001    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/einops.py:23(is_ellipsis_not_in_parenthesis)
-     1250    0.001    0.000    0.001    0.000 {built-in method torch._C._has_torch_function_variadic}
-     1250    0.001    0.000    0.001    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/backends/__init__.py:31(__get__)
-     2500    0.000    0.000    0.000    0.000 {built-in method torch._C._has_torch_function_unary}
-      600    0.000    0.000    0.001    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/autograd/grad_mode.py:226(__init__)
-     1200    0.000    0.000    0.004    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/_torch_specific.py:68(reshape)
-      150    0.000    0.000    0.044    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_tensor_str.py:479(_str)
-       50    0.000    0.000    0.000    0.000 {built-in method torch.exp}
-      600    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/_torch_specific.py:64(shape)
-      300    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/autograd/grad_mode.py:126(__init__)
-      500    0.000    0.000    0.002    0.000 {method 'format' of 'str' objects}
-     2350    0.000    0.000    0.000    0.000 {method 'values' of 'collections.OrderedDict' objects}
-      251    0.000    0.000    0.002    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_tensor.py:713(__iter__)
-       50    0.000    0.000    0.000    0.000 {method 'sin' of 'torch._C._TensorBase' objects}
-     1800    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/einops.py:29(_product)
-      150    0.000    0.000    0.000    0.000 {method 'search' of 're.Pattern' objects}
-     1800    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/einops.py:214(<listcomp>)
-       50    0.000    0.000    0.003    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/diffusers/utils/deprecation_utils.py:8(deprecate)
-      100    0.000    0.000    0.002    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/einops.py:229(_apply_recipe)
-       50    0.000    0.000    0.000    0.000 {method 'cos' of 'torch._C._TensorBase' objects}
-      100    0.000    0.000    0.010    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/conv.py:784(forward)
-      400    0.000    0.000    0.001    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/container.py:217(__iter__)
-     1250    0.000    0.000    0.000    0.000 {built-in method torch._C._get_cudnn_enabled}
-      150    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/packaging/version.py:504(_cmpkey)
-      447    0.000    0.000    0.003    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_tensor.py:26(wrapped)
-      150    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_tensor_str.py:273(_add_suffixes)
-     2350    0.000    0.000    0.000    0.000 {method 'append' of 'list' objects}
-      300    0.000    0.000    0.001    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/autograd/grad_mode.py:131(__enter__)
-      100    0.000    0.000    0.002    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/einops.py:355(reduce)
-      300    0.000    0.000    0.002    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_tensor_str.py:83(tensor_totype)
-      150    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/parameter.py:9(__instancecheck__)
-     1200    0.000    0.000    0.000    0.000 {built-in method _operator.index}
-      600    0.000    0.000    0.002    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/_torch_specific.py:40(transpose)
-      150    0.000    0.000    0.002    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_tensor.py:655(__format__)
-       50    0.000    0.000    0.001    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/diffusers/utils/outputs.py:54(__post_init__)
-      150    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_tensor_str.py:151(format)
-      150    0.000    0.000    0.005    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_tensor.py:527(norm)
-      300    0.000    0.000    0.001    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/autograd/grad_mode.py:135(__exit__)
-     1500    0.000    0.000    0.000    0.000 {method 'group' of 're.Match' objects}
-      150    0.000    0.000    0.044    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_tensor.py:333(__repr__)
-      900    0.000    0.000    0.000    0.000 {built-in method torch.is_grad_enabled}
-       50    0.000    0.000    0.000    0.000 {method 'expand' of 'torch._C._TensorBase' objects}
-      100    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/diffusers/utils/outputs.py:92(__setattr__)
-      600    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/packaging/version.py:207(<genexpr>)
-      701    0.000    0.000    0.000    0.000 {method 'dim' of 'torch._C._TensorBase' objects}
-      100    0.000    0.000    0.012    0.000 /proj/daxia/diffusion/diffusion_policy/diffusion_policy/model/diffusion/conv1d_components.py:12(forward)
-      100    0.000    0.000    0.010    0.000 /proj/daxia/diffusion/diffusion_policy/diffusion_policy/model/diffusion/conv1d_components.py:20(forward)
-      100    0.000    0.000    0.002    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/einops.py:428(rearrange)
-       50    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/dataclasses.py:1024(fields)
-      550    0.000    0.000    0.000    0.000 {method 'numel' of 'torch._C._TensorBase' objects}
-      100    0.000    0.000    0.000    0.000 {method '__format__' of 'float' objects}
-      150    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/autograd/forward_ad.py:84(unpack_dual)
-      150    0.000    0.000    0.002    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_tensor_str.py:214(_tensor_str_with_formatter)
-      150    0.000    0.000    0.002    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_tensor_str.py:166(_scalar_str)
-      198    0.000    0.000    0.002    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_tensor.py:637(__rsub__)
-      100    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/_backends.py:22(get_backend)
-      800    0.000    0.000    0.000    0.000 {method 'items' of 'dict' objects}
-      600    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/einops.py:218(<dictcomp>)
-      300    0.000    0.000    0.000    0.000 {built-in method __new__ of type object at 0x55b05ee92380}
-      250    0.000    0.000    0.000    0.000 {method 'join' of 'str' objects}
-      100    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/diffusers/utils/outputs.py:98(__setitem__)
-      600    0.000    0.000    0.000    0.000 {built-in method torch._C._set_grad_enabled}
-      100    0.000    0.000    0.000    0.000 {built-in method builtins.sorted}
-      150    0.000    0.000    0.000    0.000 {built-in method torch._C._get_default_device}
-      550    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
-       50    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/packaging/version.py:358(base_version)
-      100    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/_backends.py:79(shape)
-      447    0.000    0.000    0.000    0.000 {built-in method torch._C._has_torch_function}
-      150    0.000    0.000    0.002    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/packaging/version.py:47(parse)
-       50    0.000    0.000    0.001    0.000 <string>:2(__init__)
-      150    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_VF.py:25(__getattr__)
-      200    0.000    0.000    0.001    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/_backends.py:83(reshape)
-      100    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/conv.py:626(_output_padding)
-      100    0.000    0.000    0.000    0.000 {built-in method _abc._abc_instancecheck}
-      100    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/einops.py:37(_reduce_axes)
-      300    0.000    0.000    0.000    0.000 {built-in method torch.get_default_dtype}
-      150    0.000    0.000    0.000    0.000 {built-in method builtins.max}
-      100    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/utils.py:7(parse)
-      450    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/packaging/version.py:454(_parse_letter_version)
-      150    0.000    0.000    0.000    0.000 {method 'rfind' of 'str' objects}
-      200    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/packaging/version.py:379(<genexpr>)
-      150    0.000    0.000    0.000    0.000 <string>:1(<lambda>)
-      150    0.000    0.000    0.000    0.000 {method '_is_zerotensor' of 'torch._C._TensorBase' objects}
-      400    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/linear.py:44(forward)
-      300    0.000    0.000    0.000    0.000 {method 'has_names' of 'torch._C._TensorBase' objects}
-      100    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/_backends.py:302(is_appropriate_type)
-       50    0.000    0.000    0.000    0.000 {built-in method math.log}
-       50    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:398(parent)
-      300    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_jit_internal.py:958(is_scripting)
-      100    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/_backends.py:330(transpose)
-      100    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/abc.py:117(__instancecheck__)
-      150    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/dataclasses.py:1039(<genexpr>)
-       50    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:1033(_handle_fromlist)
-      152    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/diffusers/configuration_utils.py:486(config)
-      150    0.000    0.000    0.000    0.000 {method 'is_neg' of 'torch._C._TensorBase' objects}
-      150    0.000    0.000    0.000    0.000 {method 'split' of 'str' objects}
-      100    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/diffusers/utils/outputs.py:62(<genexpr>)
-      150    0.000    0.000    0.000    0.000 {function _ParameterMeta.__instancecheck__ at 0x154d1e051820}
-      100    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/__init__.py:281(is_tensor)
-       50    0.000    0.000    0.000    0.000 {method '__format__' of 'int' objects}
-      200    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/packaging/version.py:518(<lambda>)
-       50    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/packaging/version.py:96(__ge__)
-       50    0.000    0.000    0.000    0.000 {method 'rpartition' of 'str' objects}
-      100    0.000    0.000    0.000    0.000 {method 'pop' of 'list' objects}
-      150    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/packaging/version.py:492(_parse_local_version)
-      100    0.000    0.000    0.000    0.000 {method 'keys' of 'collections.OrderedDict' objects}
-      100    0.000    0.000    0.000    0.000 {built-in method builtins.callable}
-       50    0.000    0.000    0.000    0.000 {built-in method builtins.all}
-      100    0.000    0.000    0.000    0.000 {built-in method builtins.hasattr}
+     3300    0.307    0.000    0.307    0.000 {built-in method torch.conv1d}
+     2500    0.081    0.000    0.081    0.000 {built-in method torch.group_norm}
+     1200    0.064    0.000    0.645    0.001 /proj/daxia/diffusion/diffusion_policy/diffusion_policy/model/diffusion/conditional_unet1d.py:46(forward)
+     1400    0.043    0.000    0.043    0.000 {built-in method torch._C._nn.linear}
+     3800    0.033    0.000    0.033    0.000 {built-in method torch._C._nn.mish}
+21400/100    0.032    0.000    0.756    0.008 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/module.py:1124(_call_impl)
+      200    0.018    0.000    0.018    0.000 {built-in method torch.conv_transpose1d}
+3900/3800    0.017    0.000    0.548    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/container.py:137(forward)
+      100    0.015    0.000    0.035    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/diffusers/schedulers/scheduling_ddpm.py:228(step)
+     2500    0.014    0.000    0.106    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/functional.py:2506(group_norm)
+    21501    0.013    0.000    0.013    0.000 {built-in method torch._C._get_tracing_state}
+    23201    0.013    0.000    0.013    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/module.py:1194(__getattr__)
+     1200    0.013    0.000    0.018    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/einops.py:150(_reconstruct_from_shape_uncached)
+     4100    0.011    0.000    0.011    0.000 {method 'reshape' of 'torch._C._TensorBase' objects}
+      100    0.006    0.000    0.755    0.008 /proj/daxia/diffusion/diffusion_policy/diffusion_policy/model/diffusion/conditional_unet1d.py:173(forward)
+     3300    0.006    0.000    0.319    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/conv.py:306(forward)
+     2500    0.006    0.000    0.114    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/normalization.py:271(forward)
+31800/26800    0.004    0.000    0.006    0.000 {built-in method builtins.len}
+     7500    0.004    0.000    0.004    0.000 {method 'size' of 'torch._C._TensorBase' objects}
+      100    0.004    0.000    0.009    0.000 /proj/daxia/diffusion/diffusion_policy/diffusion_policy/model/diffusion/positional_embedding.py:10(forward)
+      300    0.004    0.000    0.004    0.000 {built-in method torch.cat}
+     1400    0.004    0.000    0.004    0.000 {method 'permute' of 'torch._C._TensorBase' objects}
+     2400    0.004    0.000    0.008    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/container.py:183(_get_abs_string_index)
+     3300    0.004    0.000    0.311    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/conv.py:298(_conv_forward)
+     1200    0.004    0.000    0.035    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/_torch_specific.py:74(apply_for_scriptable_torch)
+     2500    0.004    0.000    0.004    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/functional.py:2390(_verify_batch_size)
+     3800    0.003    0.000    0.037    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/functional.py:2051(mish)
+     3800    0.003    0.000    0.040    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/activation.py:426(forward)
+     2500    0.003    0.000    0.430    0.000 /proj/daxia/diffusion/diffusion_policy/diffusion_policy/model/diffusion/conv1d_components.py:39(forward)
+      398    0.003    0.000    0.003    0.000 {built-in method torch.rsub}
+       99    0.003    0.000    0.005    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/diffusers/schedulers/scheduling_ddpm.py:194(_get_variance)
+     3900    0.003    0.000    0.004    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/container.py:129(__iter__)
+     2400    0.002    0.000    0.011    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/container.py:192(__getitem__)
+     1400    0.002    0.000    0.046    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/linear.py:113(forward)
+      101    0.002    0.000    0.002    0.000 {method 'to' of 'torch._C._TensorBase' objects}
+      499    0.002    0.000    0.002    0.000 {method 'pow' of 'torch._C._TensorBase' objects}
+      300    0.002    0.000    0.005    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/packaging/version.py:188(__init__)
+      200    0.002    0.000    0.009    0.000 {built-in method builtins.print}
+      100    0.002    0.000    0.006    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_tensor_str.py:306(_str_intern)
+      100    0.002    0.000    0.002    0.000 {built-in method torch.randn}
+8900/8800    0.002    0.000    0.002    0.000 {built-in method builtins.isinstance}
+      199    0.001    0.000    0.001    0.000 {built-in method torch.clamp}
+      100    0.001    0.000    0.001    0.000 {built-in method torch.arange}
+     1200    0.001    0.000    0.036    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/layers/torch.py:13(forward)
+     5000    0.001    0.000    0.002    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/container.py:213(__len__)
+     3600    0.001    0.000    0.001    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/einops.py:23(is_ellipsis_not_in_parenthesis)
+     4801    0.001    0.000    0.001    0.000 {built-in method builtins.iter}
+     2500    0.001    0.000    0.002    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/backends/__init__.py:31(__get__)
+     2500    0.001    0.000    0.001    0.000 {built-in method torch._C._has_torch_function_variadic}
+     1200    0.001    0.000    0.001    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/_torch_specific.py:64(shape)
+     2400    0.001    0.000    0.008    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/_torch_specific.py:68(reshape)
+      100    0.001    0.000    0.001    0.000 {built-in method torch.exp}
+     3600    0.001    0.000    0.001    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/einops.py:29(_product)
+     4700    0.001    0.000    0.001    0.000 {method 'values' of 'collections.OrderedDict' objects}
+      100    0.001    0.000    0.001    0.000 {method 'sin' of 'torch._C._TensorBase' objects}
+      897    0.001    0.000    0.006    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_tensor.py:26(wrapped)
+      300    0.001    0.000    0.001    0.000 {method 'search' of 're.Pattern' objects}
+     3600    0.001    0.000    0.001    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/einops.py:214(<listcomp>)
+      100    0.001    0.000    0.006    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/diffusers/utils/deprecation_utils.py:8(deprecate)
+      200    0.001    0.000    0.004    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/einops.py:229(_apply_recipe)
+     4000    0.001    0.000    0.001    0.000 {built-in method torch._C._has_torch_function_unary}
+      100    0.001    0.000    0.001    0.000 {method 'cos' of 'torch._C._TensorBase' objects}
+      200    0.001    0.000    0.020    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/conv.py:784(forward)
+     2500    0.001    0.000    0.001    0.000 {built-in method torch._C._get_cudnn_enabled}
+      800    0.001    0.000    0.001    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/container.py:217(__iter__)
+      300    0.001    0.000    0.001    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/packaging/version.py:504(_cmpkey)
+      200    0.001    0.000    0.005    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/einops.py:355(reduce)
+     4100    0.001    0.000    0.001    0.000 {method 'append' of 'list' objects}
+      101    0.000    0.000    0.000    0.000 {method 'unbind' of 'torch._C._TensorBase' objects}
+     2400    0.000    0.000    0.000    0.000 {built-in method _operator.index}
+      100    0.000    0.000    0.003    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_tensor_str.py:88(__init__)
+      100    0.000    0.000    0.004    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_tensor_str.py:236(_tensor_str)
+      100    0.000    0.000    0.001    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/diffusers/utils/outputs.py:54(__post_init__)
+     1200    0.000    0.000    0.004    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/_torch_specific.py:40(transpose)
+     3000    0.000    0.000    0.000    0.000 {method 'group' of 're.Match' objects}
+     1200    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/packaging/version.py:207(<genexpr>)
+      200    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/diffusers/utils/outputs.py:92(__setattr__)
+      100    0.000    0.000    0.000    0.000 {method 'expand' of 'torch._C._TensorBase' objects}
+      200    0.000    0.000    0.020    0.000 /proj/daxia/diffusion/diffusion_policy/diffusion_policy/model/diffusion/conv1d_components.py:20(forward)
+      400    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/autograd/grad_mode.py:226(__init__)
+      200    0.000    0.000    0.021    0.000 /proj/daxia/diffusion/diffusion_policy/diffusion_policy/model/diffusion/conv1d_components.py:12(forward)
+      200    0.000    0.000    0.005    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/einops.py:428(rearrange)
+      100    0.000    0.000    0.007    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_tensor_str.py:479(_str)
+      100    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/dataclasses.py:1024(fields)
+     1600    0.000    0.000    0.000    0.000 {method 'items' of 'dict' objects}
+      398    0.000    0.000    0.003    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_tensor.py:637(__rsub__)
+     1200    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/einops.py:218(<dictcomp>)
+      200    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/autograd/grad_mode.py:126(__init__)
+      200    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/_backends.py:22(get_backend)
+      200    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/autograd/grad_mode.py:131(__enter__)
+      200    0.000    0.000    0.000    0.000 {built-in method builtins.sorted}
+      100    0.000    0.000    0.001    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/packaging/version.py:358(base_version)
+      200    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/diffusers/utils/outputs.py:98(__setitem__)
+      897    0.000    0.000    0.000    0.000 {built-in method torch._C._has_torch_function}
+      200    0.000    0.000    0.000    0.000 {method 'item' of 'torch._C._TensorBase' objects}
+      100    0.000    0.000    0.002    0.000 <string>:2(__init__)
+      300    0.000    0.000    0.005    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/packaging/version.py:47(parse)
+      300    0.000    0.000    0.000    0.000 {method 'join' of 'str' objects}
+      200    0.000    0.000    0.000    0.000 {built-in method _abc._abc_instancecheck}
+      200    0.000    0.000    0.001    0.000 {method 'format' of 'str' objects}
+      200    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/_backends.py:79(shape)
+      100    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_tensor_str.py:273(_add_suffixes)
+      400    0.000    0.000    0.001    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/_backends.py:83(reshape)
+      101    0.000    0.000    0.001    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_tensor.py:713(__iter__)
+      200    0.000    0.000    0.001    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/conv.py:626(_output_padding)
+      100    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/parameter.py:9(__instancecheck__)
+      200    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/einops.py:37(_reduce_axes)
+      200    0.000    0.000    0.001    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/utils.py:7(parse)
+      400    0.000    0.000    0.000    0.000 {built-in method __new__ of type object at 0x55d42f404380}
+      400    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/packaging/version.py:379(<genexpr>)
+      100    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_tensor.py:655(__format__)
+      200    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/autograd/grad_mode.py:135(__exit__)
+      100    0.000    0.000    0.007    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_tensor.py:333(__repr__)
+      900    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/packaging/version.py:454(_parse_letter_version)
+      800    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/nn/modules/linear.py:44(forward)
+      600    0.000    0.000    0.000    0.000 {built-in method torch.is_grad_enabled}
+      300    0.000    0.000    0.000    0.000 <string>:1(<lambda>)
+      100    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_tensor_str.py:151(format)
+      300    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/dataclasses.py:1039(<genexpr>)
+      200    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/_backends.py:302(is_appropriate_type)
+      100    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:398(parent)
+      100    0.000    0.000    0.000    0.000 {built-in method math.log}
+      600    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+      100    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:1033(_handle_fromlist)
+      200    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/abc.py:117(__instancecheck__)
+      100    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/autograd/forward_ad.py:84(unpack_dual)
+      100    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_tensor_str.py:214(_tensor_str_with_formatter)
+      200    0.000    0.000    0.001    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/einops/_backends.py:330(transpose)
+      100    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_tensor_str.py:166(_scalar_str)
+      300    0.000    0.000    0.000    0.000 {method 'split' of 'str' objects}
+      200    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/diffusers/utils/outputs.py:62(<genexpr>)
+      400    0.000    0.000    0.000    0.000 {built-in method torch._C._set_grad_enabled}
+      302    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/diffusers/configuration_utils.py:486(config)
+      100    0.000    0.000    0.000    0.000 {built-in method torch._C._get_default_device}
+      300    0.000    0.000    0.000    0.000 {method 'numel' of 'torch._C._TensorBase' objects}
+      200    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/__init__.py:281(is_tensor)
+      301    0.000    0.000    0.000    0.000 {method 'dim' of 'torch._C._TensorBase' objects}
+      400    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/packaging/version.py:518(<lambda>)
+      100    0.000    0.000    0.000    0.000 {method '__format__' of 'int' objects}
+      100    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/packaging/version.py:96(__ge__)
+      300    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/packaging/version.py:492(_parse_local_version)
+      100    0.000    0.000    0.000    0.000 {built-in method builtins.max}
+      100    0.000    0.000    0.000    0.000 {method 'rpartition' of 'str' objects}
+      200    0.000    0.000    0.000    0.000 {built-in method torch.get_default_dtype}
+      200    0.000    0.000    0.000    0.000 {method 'keys' of 'collections.OrderedDict' objects}
+      200    0.000    0.000    0.000    0.000 {method 'pop' of 'list' objects}
+      100    0.000    0.000    0.000    0.000 {method 'rfind' of 'str' objects}
+      200    0.000    0.000    0.000    0.000 {built-in method builtins.callable}
+      200    0.000    0.000    0.000    0.000 {built-in method builtins.hasattr}
+      200    0.000    0.000    0.000    0.000 {method 'has_names' of 'torch._C._TensorBase' objects}
+      100    0.000    0.000    0.000    0.000 {method '_is_zerotensor' of 'torch._C._TensorBase' objects}
+      100    0.000    0.000    0.000    0.000 {built-in method builtins.all}
+      100    0.000    0.000    0.000    0.000 {function _ParameterMeta.__instancecheck__ at 0x14de4eba6820}
+      100    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/packaging/version.py:267(epoch)
+      200    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/torch/_jit_internal.py:958(is_scripting)
+      100    0.000    0.000    0.000    0.000 {method 'is_neg' of 'torch._C._TensorBase' objects}
+      100    0.000    0.000    0.000    0.000 {method 'values' of 'dict' objects}
+      100    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/packaging/version.py:278(release)
         1    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/diffusers/schedulers/scheduling_ddpm.py:179(set_timesteps)
-       50    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/packaging/version.py:267(epoch)
-       50    0.000    0.000    0.000    0.000 {method 'values' of 'dict' objects}
-       50    0.000    0.000    0.000    0.000 /home/x_yufdu/.conda/envs/robodiff/lib/python3.9/site-packages/packaging/version.py:278(release)
         1    0.000    0.000    0.000    0.000 {built-in method numpy.arange}
-        1    0.000    0.000    0.000    0.000 {built-in method torch.from_numpy}
         1    0.000    0.000    0.000    0.000 {method 'copy' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 {built-in method torch.from_numpy}
         1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
         1    0.000    0.000    0.000    0.000 {built-in method builtins.min}
 

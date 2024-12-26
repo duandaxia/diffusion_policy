@@ -178,6 +178,7 @@ class PushTKeypointsRunner(BaseLowdimRunner):
         # allocate data
         all_video_paths = [None] * n_inits
         all_rewards = [None] * n_inits
+        inference_time = None
 
         for chunk_idx in range(n_chunks):
             start = chunk_idx * n_envs
@@ -204,6 +205,11 @@ class PushTKeypointsRunner(BaseLowdimRunner):
             pbar = tqdm.tqdm(total=self.max_steps, desc=f"Eval PushtKeypointsRunner {chunk_idx+1}/{n_chunks}", 
                 leave=False, mininterval=self.tqdm_interval_sec)
             done = False
+
+            # NR method here
+            # init=True
+            # init_traj = None
+
             while not done:
                 Do = obs.shape[-1] // 2
                 # create obs dict
@@ -225,14 +231,24 @@ class PushTKeypointsRunner(BaseLowdimRunner):
 
                 # run policy
                 start_t = time.time()
+
                 with torch.no_grad():
                     action_dict = policy.predict_action(obs_dict)
+
+                # NR method    
+                # action_dict = policy.nr_all_predict_action(obs_dict)
+                # if init is False:
+                #     action_dict = policy.predict_action(obs_dict)
+                #     init_traj = action_dict['traj']
+                #     init = True
+                # else:
+                #     with torch.no_grad():
+                #         action_dict = policy.nr_predict_action(obs_dict, init_traj)
                 end_t = time.time()
 
                 duration = end_t-start_t
-                # with open("/proj/daxia/diffusion/diffusion_policy/data/default/time.csv",'a' ,newline="") as f:
-                #     csv.writer(f, delimiter='\n' )
-                #     f.write(duration + "\n")
+
+                inference_time.append(duration)
 
                 print(f"Inference time[s]: {duration:.1f}")
 
@@ -259,7 +275,7 @@ class PushTKeypointsRunner(BaseLowdimRunner):
         # import pdb; pdb.set_trace()
 
         # log
-        max_rewards = collections.defaultdict(list)
+        last_rewards = collections.defaultdict(list)
         log_data = dict()
         # results reported in the paper are generated using the commented out line below
         # which will only report and average metrics from first n_envs initial condition and seeds
@@ -272,9 +288,13 @@ class PushTKeypointsRunner(BaseLowdimRunner):
         # for i in range(n_inits):
             seed = self.env_seeds[i]
             prefix = self.env_prefixs[i]
-            max_reward = np.max(all_rewards[i])
-            max_rewards[prefix].append(max_reward)
-            log_data[prefix+f'sim_max_reward_{seed}'] = max_reward
+            # max_reward = np.max(all_rewards[i])
+            # max_rewards[prefix].append(max_reward)
+            # log_data[prefix+f'sim_max_reward_{seed}'] = max_reward
+
+            last_reward = all_rewards[i][-1]
+            last_rewards[prefix].append(last_reward)
+            log_data[prefix+f'sim_last_reward_{seed}'] = last_reward
 
             # visualize sim
             video_path = all_video_paths[i]
@@ -283,9 +303,11 @@ class PushTKeypointsRunner(BaseLowdimRunner):
                 log_data[prefix+f'sim_video_{seed}'] = sim_video
 
         # log aggregate metrics
-        for prefix, value in max_rewards.items():
+        for prefix, value in last_rewards.items():
             name = prefix+'mean_score'
             value = np.mean(value)
             log_data[name] = value
+
+        log_data['inference_time'] = np.average(inference_time)
 
         return log_data
