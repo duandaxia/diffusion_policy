@@ -178,7 +178,7 @@ class PushTKeypointsRunner(BaseLowdimRunner):
         # allocate data
         all_video_paths = [None] * n_inits
         all_rewards = [None] * n_inits
-        inference_time = None
+        inference_time = []
 
         for chunk_idx in range(n_chunks):
             start = chunk_idx * n_envs
