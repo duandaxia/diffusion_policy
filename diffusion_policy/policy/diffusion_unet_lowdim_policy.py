@@ -62,10 +62,71 @@ class DiffusionUnetLowdimPolicy(BaseLowdimPolicy):
             num_inference_steps = noise_scheduler.config.num_train_timesteps
         self.num_inference_steps = num_inference_steps
 
-        # self.n_action_steps = 50
-    
+        # self.n_action_steps = 20
+        # print("action steps: ", self.n_action_steps)    
+
+
     # ========= inference  ============
     def conditional_sample(self, 
+            condition_data, condition_mask,
+            local_cond=None, global_cond=None,
+            generator=None,
+            past_acs=None,
+            # keyword arguments to scheduler.step
+            **kwargs
+            ):
+        
+        profiler = cProfile.Profile()
+        profiler.enable()
+        model = self.model
+        scheduler = self.noise_scheduler
+
+        trajectory = torch.randn(
+            size=condition_data.shape, 
+            dtype=condition_data.dtype,
+            device=condition_data.device,
+            generator=generator)
+    
+        # if self.init and past_acs is not None:
+            # trajectory[:,:8,:2] = past_acs
+
+        # set step values
+        # scheduler.num_inference_steps=100
+        scheduler.set_timesteps(self.num_inference_steps)
+
+        prevtraj = trajectory
+
+        for t in scheduler.timesteps:
+            # 1. apply conditioning
+            trajectory[condition_mask] = condition_data[condition_mask]
+            prevtraj = trajectory
+
+            # 2. predict model output
+            model_output = model(trajectory, t, 
+                local_cond=local_cond, global_cond=global_cond)
+
+            # 3. compute previous image: x_t -> x_t-1
+            trajectory = scheduler.step(
+                model_output, t, trajectory, 
+                generator=generator,
+                **kwargs
+                ).prev_sample
+            # print(t)
+            # print(trajectory.shape)
+
+
+        # finally make sure conditioning is enforced
+        trajectory[condition_mask] = condition_data[condition_mask]        
+
+        profiler.disable()
+        with open('profile.prof', 'w') as f:
+            ps = pstats.Stats(profiler, stream=f)
+            ps.sort_stats(pstats.SortKey.TIME)
+            ps.print_stats()
+        return trajectory
+    
+
+    def nr_conditional_sample(self, 
             condition_data, condition_mask,
             local_cond=None, global_cond=None,
             generator=None,
@@ -121,64 +182,6 @@ class DiffusionUnetLowdimPolicy(BaseLowdimPolicy):
             ps.sort_stats(pstats.SortKey.TIME)
             ps.print_stats()
         return trajectory
-    
-
-    # def nr_conditional_sample(self, 
-    #         condition_data, condition_mask,
-    #         local_cond=None, global_cond=None,
-    #         generator=None,
-    #         past_acs=None,
-    #         # keyword arguments to scheduler.step
-    #         **kwargs
-    #         ):
-        
-    #     profiler = cProfile.Profile()
-    #     profiler.enable()
-    #     model = self.model
-    #     scheduler = self.noise_scheduler
-
-    #     trajectory = torch.randn(
-    #         size=condition_data.shape, 
-    #         dtype=condition_data.dtype,
-    #         device=condition_data.device,
-    #         generator=generator)
-    
-    #     # if self.init and past_acs is not None:
-    #         # trajectory[:,:8,:2] = past_acs
-
-    #     # set step values
-    #     scheduler.num_inference_steps=100
-    #     scheduler.set_timesteps(self.num_inference_steps)
-
-    #     prevtraj = trajectory
-
-    #     for t in scheduler.timesteps:
-    #         # 1. apply conditioning
-    #         trajectory[condition_mask] = condition_data[condition_mask]
-    #         prevtraj = trajectory
-
-    #         # 2. predict model output
-    #         model_output = model(trajectory, t, 
-    #             local_cond=local_cond, global_cond=global_cond)
-
-    #         # 3. compute previous image: x_t -> x_t-1
-    #         trajectory = scheduler.step(
-    #             model_output, t, trajectory, 
-    #             generator=generator,
-    #             **kwargs
-    #             ).prev_sample
-    #         print(t)
-    #         print(trajectory.shape)
-
-    #     # finally make sure conditioning is enforced
-    #     trajectory[condition_mask] = condition_data[condition_mask]        
-
-    #     profiler.disable()
-    #     with open('profile.prof', 'w') as f:
-    #         ps = pstats.Stats(profiler, stream=f)
-    #         ps.sort_stats(pstats.SortKey.TIME)
-    #         ps.print_stats()
-    #     return trajectory
 
 
 

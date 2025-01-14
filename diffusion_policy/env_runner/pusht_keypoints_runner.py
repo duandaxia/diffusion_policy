@@ -276,6 +276,7 @@ class PushTKeypointsRunner(BaseLowdimRunner):
 
         # log
         last_rewards = collections.defaultdict(list)
+        max_rewards = collections.defaultdict(list)
         log_data = dict()
         # results reported in the paper are generated using the commented out line below
         # which will only report and average metrics from first n_envs initial condition and seeds
@@ -288,11 +289,11 @@ class PushTKeypointsRunner(BaseLowdimRunner):
         # for i in range(n_inits):
             seed = self.env_seeds[i]
             prefix = self.env_prefixs[i]
-            # max_reward = np.max(all_rewards[i])
-            # max_rewards[prefix].append(max_reward)
-            # log_data[prefix+f'sim_max_reward_{seed}'] = max_reward
+            max_reward = np.max(all_rewards[i])
+            max_rewards[prefix].append(max_reward)
+            log_data[prefix+f'sim_max_reward_{seed}'] = max_reward
 
-            last_reward = all_rewards[i][-1]
+            last_reward = all_rewards[i][-1] #change the reward to be the last reward
             last_rewards[prefix].append(last_reward)
             log_data[prefix+f'sim_last_reward_{seed}'] = last_reward
 
@@ -303,10 +304,16 @@ class PushTKeypointsRunner(BaseLowdimRunner):
                 log_data[prefix+f'sim_video_{seed}'] = sim_video
 
         # log aggregate metrics
-        for prefix, value in last_rewards.items():
+        for prefix, value in max_rewards.items():
             name = prefix+'mean_score'
             value = np.mean(value)
             log_data[name] = value
+            log_data[prefix+'mean_max_score'] = np.average(value)
+
+        for prefix, value in last_rewards.items():
+            value = np.mean(value)
+            log_data[prefix+'mean_last_score'] = value
+
 
         log_data['inference_time'] = np.average(inference_time)
 
