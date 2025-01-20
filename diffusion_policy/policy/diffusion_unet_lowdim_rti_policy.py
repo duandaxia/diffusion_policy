@@ -15,9 +15,9 @@ from diffusion_policy.model.diffusion.conditional_unet1d import ConditionalUnet1
 from diffusion_policy.model.diffusion.mask_generator import LowdimMaskGenerator
 from diffusion_policy.diffusion_policy.rti.euler_scheduler import RTIScheduler
 
-##python eval.py --checkpoint data/default/epoch\=0550-test_mean_score\=0.969.ckpt --output_dir data/todele 
+##python eval.py --checkpoint data/default/epoch\=0550-test_mean_score\=0.969.ckpt --output_dir data/nt/test 
 
-class DiffusionUnetLowdimPolicy(BaseLowdimPolicy):
+class DiffusionUnetLowdimRTIPolicy(BaseLowdimPolicy):
     def __init__(self, 
             model: ConditionalUnet1D,
             noise_scheduler: RTIScheduler,
@@ -63,6 +63,7 @@ class DiffusionUnetLowdimPolicy(BaseLowdimPolicy):
             num_inference_steps = noise_scheduler.config.num_train_timesteps
         self.num_inference_steps = num_inference_steps
 
+        print("Here is in the nt formulation")
         # self.n_action_steps = 50
     
     # ========= inference  ============
@@ -111,6 +112,7 @@ class DiffusionUnetLowdimPolicy(BaseLowdimPolicy):
                 ).prev_sample
             print(t)
             print(trajectory.shape)
+            break
 
         # finally make sure conditioning is enforced
         trajectory[condition_mask] = condition_data[condition_mask]        

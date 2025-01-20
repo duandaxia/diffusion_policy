@@ -1,0 +1,8 @@
+checkpoint: /home/yufei/RTI-DP/dp_data/100.ckpt
+output_dir: data/nt/test
+n_action_steps: 10
+_target_: diffusion_policy.workspace.train_diffusion_unet_lowdim_rti_workspace.TrainDiffusionUnetLowdimRTIWorkspace
+
+
+policy:
+  _target_: diffusion_policy.policy.diffusion_unet_lowdim_rti_policy.DiffusionUnetLowdimRTIPolicy

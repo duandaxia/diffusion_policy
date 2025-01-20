@@ -22,7 +22,7 @@ obs_as_global_cond: False
 pred_action_steps_only: False
 
 policy:
-  _target_: diffusion_policy.policy.diffusion_unet_lowdim_policy_nt.DiffusionUnetLowdimPolicy
+  _target_: diffusion_policy.policy.diffusion_unet_lowdim_policy_rt.DiffusionUnetLowdimRTPolicy
 
   model:
     _target_: diffusion_policy.model.diffusion.conditional_unet1d.ConditionalUnet1D
