@@ -120,4 +120,64 @@ class RTIScheduler(DDIMScheduler):
             return (updated_sample,)
 
         return RTISchedulerOutput(prev_sample=updated_sample, pred_original_sample=pred_original_sample)
-        
+
+    def set_timesteps(self, num_inference_steps: int):
+        """
+        Set the number of inference steps for the scheduler.
+
+        Args:
+            num_inference_steps (`int`): number of inference steps to set.
+        """
+        if num_inference_steps is not None and timesteps is not None:
+            raise ValueError("Can only pass one of `num_inference_steps` or `custom_timesteps`.")
+
+        if timesteps is not None:
+            for i in range(1, len(timesteps)):
+                if timesteps[i] >= timesteps[i - 1]:
+                    raise ValueError("`custom_timesteps` must be in descending order.")
+
+            if timesteps[0] >= self.config.num_train_timesteps:
+                raise ValueError(
+                    f"`timesteps` must start before `self.config.train_timesteps`:"
+                    f" {self.config.num_train_timesteps}."
+                )
+
+            timesteps = np.array(timesteps, dtype=np.int64)
+            self.custom_timesteps = True
+        else:
+            if num_inference_steps > self.config.num_train_timesteps:
+                raise ValueError(
+                    f"`num_inference_steps`: {num_inference_steps} cannot be larger than `self.config.train_timesteps`:"
+                    f" {self.config.num_train_timesteps} as the unet model trained with this scheduler can only handle"
+                    f" maximal {self.config.num_train_timesteps} timesteps."
+                )
+
+            self.num_inference_steps = num_inference_steps
+            self.custom_timesteps = False
+
+            # "linspace", "leading", "trailing" corresponds to annotation of Table 2. of https://arxiv.org/abs/2305.08891
+            if self.config.timestep_spacing == "linspace":
+                timesteps = (
+                    np.linspace(0, self.config.num_train_timesteps - 1, num_inference_steps)
+                    .round()[::-1]
+                    .copy()
+                    .astype(np.int64)
+                )
+            elif self.config.timestep_spacing == "leading":
+                step_ratio = self.config.num_train_timesteps // self.num_inference_steps
+                # creates integer timesteps by multiplying by ratio
+                # casting to int to avoid issues when num_inference_step is power of 3
+                timesteps = (np.arange(0, num_inference_steps) * step_ratio).round()[::-1].copy().astype(np.int64)
+                timesteps += self.config.steps_offset
+            elif self.config.timestep_spacing == "trailing":
+                step_ratio = self.config.num_train_timesteps / self.num_inference_steps
+                # creates integer timesteps by multiplying by ratio
+                # casting to int to avoid issues when num_inference_step is power of 3
+                timesteps = np.round(np.arange(self.config.num_train_timesteps, 0, -step_ratio)).astype(np.int64)
+                timesteps -= 1
+            else:
+                raise ValueError(
+                    f"{self.config.timestep_spacing} is not supported. Please make sure to choose one of 'linspace', 'leading' or 'trailing'."
+                )
+
+        self.timesteps = torch.from_numpy(timesteps).to(device)
