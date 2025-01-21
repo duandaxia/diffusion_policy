@@ -250,7 +250,7 @@ class PushTKeypointsRunner(BaseLowdimRunner):
 
                 inference_time.append(duration)
 
-                print(f"Inference time[s]: {duration:.1f}")
+                print(f"Inference time[s]: {duration:.5f}")
 
                 # device_transfer
                 np_action_dict = dict_apply(action_dict,

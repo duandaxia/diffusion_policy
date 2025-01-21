@@ -13,7 +13,7 @@ from diffusion_policy.model.common.normalizer import LinearNormalizer
 from diffusion_policy.policy.base_lowdim_policy import BaseLowdimPolicy
 from diffusion_policy.model.diffusion.conditional_unet1d import ConditionalUnet1D
 from diffusion_policy.model.diffusion.mask_generator import LowdimMaskGenerator
-from diffusion_policy.diffusion_policy.rti.euler_scheduler import RTIScheduler
+from diffusion_policy.rti.rti_scheduler import RTIScheduler
 
 ##python eval.py --checkpoint data/default/epoch\=0550-test_mean_score\=0.969.ckpt --output_dir data/nt/test 
 
@@ -57,17 +57,18 @@ class DiffusionUnetLowdimRTIPolicy(BaseLowdimPolicy):
         self.pred_action_steps_only = pred_action_steps_only
         self.oa_step_convention = oa_step_convention
         self.kwargs = kwargs
-        self.init = True
+        self.initial_guess = True
+        self.initial_traj: torch.Tensor = None
 
         if num_inference_steps is None:
             num_inference_steps = noise_scheduler.config.num_train_timesteps
-        self.num_inference_steps = num_inference_steps
+        self.num_inference_steps = num_inference_steps # for ddpm
 
         print("Here is in the nt formulation")
         # self.n_action_steps = 50
     
     # ========= inference  ============
-    def conditional_sample(self, 
+    def conditional_nr_sample(self, 
             condition_data, condition_mask,
             local_cond=None, global_cond=None,
             generator=None,
@@ -86,9 +87,6 @@ class DiffusionUnetLowdimRTIPolicy(BaseLowdimPolicy):
             dtype=condition_data.dtype,
             device=condition_data.device,
             generator=generator)
-    
-        # if self.init and past_acs is not None:
-            # trajectory[:,:8,:2] = past_acs
 
         # set step values
         scheduler.set_timesteps(self.num_inference_steps)
@@ -123,6 +121,68 @@ class DiffusionUnetLowdimRTIPolicy(BaseLowdimPolicy):
             ps.sort_stats(pstats.SortKey.TIME)
             ps.print_stats()
         return trajectory
+
+    def initial_sample(self, 
+            condition_data, condition_mask,
+            local_cond=None, global_cond=None,
+            generator=None,
+            past_acs=None,
+            # keyword arguments to scheduler.step
+            **kwargs
+            ):
+        
+        profiler = cProfile.Profile()
+        profiler.enable()
+        model = self.model
+        scheduler = DDPMScheduler(
+            num_train_timesteps=self.num_inference_steps,
+            beta_schedule=self.noise_scheduler.config.beta_schedule,
+            clip_sample=self.noise_scheduler.config.clip_sample,
+            prediction_type=self.noise_scheduler.config.prediction_type,
+            )
+
+        trajectory = torch.randn(
+            size=condition_data.shape, 
+            dtype=condition_data.dtype,
+            device=condition_data.device,
+            generator=generator)
+
+        # set step values
+        scheduler.set_timesteps(self.num_inference_steps)
+
+        prevtraj = trajectory
+
+        for t in scheduler.timesteps:
+            # 1. apply conditioning
+            trajectory[condition_mask] = condition_data[condition_mask]
+            prevtraj = trajectory
+
+            # 2. predict model output
+            model_output = model(trajectory, t, 
+                local_cond=local_cond, global_cond=global_cond)
+
+            # 3. compute previous image: x_t -> x_t-1
+            trajectory = scheduler.step(
+                model_output, t, trajectory, 
+                generator=generator,
+                **kwargs
+                ).prev_sample
+            print(t)
+            print(trajectory.shape)
+        
+
+        # finally make sure conditioning is enforced
+        trajectory[condition_mask] = condition_data[condition_mask]        
+
+        profiler.disable()
+        with open('profile.prof', 'w') as f:
+            ps = pstats.Stats(profiler, stream=f)
+            ps.sort_stats(pstats.SortKey.TIME)
+            ps.print_stats()
+
+        self.initial_traj = trajectory
+        return trajectory
+
 
     def predict_action(self, obs_dict: Dict[str, torch.Tensor]) -> Dict[str, torch.Tensor]:
         """
@@ -178,14 +238,25 @@ class DiffusionUnetLowdimRTIPolicy(BaseLowdimPolicy):
             cond_mask[:,:To,Da:] = True
 
         # run sampling
-        nsample = self.conditional_sample(
-            cond_data, 
-            cond_mask,
-            local_cond=local_cond,
-            global_cond=global_cond,
-            past_acs=past_acs,
-            **self.kwargs)
-        
+        if self.initial_guess:
+            nsample = self.initial_sample(
+                cond_data, 
+                cond_mask,
+                local_cond=local_cond,
+                global_cond=global_cond,
+                past_acs=past_acs,
+                **self.kwargs)
+            self.initial_guess = False
+
+        else:
+            nsample = self.conditional_nr_sample(
+                cond_data, 
+                cond_mask,
+                local_cond=local_cond,
+                global_cond=global_cond,
+                past_acs=past_acs,
+                **self.kwargs)
+            
         # unnormalize prediction
         naction_pred = nsample[...,:Da]
         action_pred = self.normalizer['action'].unnormalize(naction_pred)
